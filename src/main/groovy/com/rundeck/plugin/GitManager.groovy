@@ -71,6 +71,7 @@ class GitManager {
                 performPull(agit)
             }
 
+
             if (needsClone) {
                 removeWorkdir(base)
                 performClone(base)
@@ -103,6 +104,7 @@ class GitManager {
         try {
             setupTransportAuthentication(sshConfig, cloneCommand, this.gitURL)
             git = cloneCommand.call()
+            git.checkout().setName(this.branch).call()
         } catch (Exception e) {
             e.printStackTrace()
             logger.debug("Failed cloning the repository from ${this.gitURL}: ${e.message}", e)
